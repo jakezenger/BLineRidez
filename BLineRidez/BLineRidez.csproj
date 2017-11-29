@@ -212,6 +212,7 @@
     <Compile Include="Models\DriverInstance.cs" />
     <Compile Include="Models\RideRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedCode\Database.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -236,7 +237,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="SharedCode\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
