@@ -20,5 +20,30 @@ namespace BLineRidez.SharedCode
 
             CONNECTION_STRING = builder.ConnectionString.ToString();
         }
+
+        public int Execute(string sqlCommandString)
+        {
+            using (var sqlConnection = new SqlConnection())
+            {
+                try
+                {
+                    sqlConnection.ConnectionString = CONNECTION_STRING;
+                    sqlConnection.Open();
+
+                    var command = new SqlCommand(sqlCommandString, sqlConnection);
+
+                    int result = command.ExecuteNonQuery();
+
+                    sqlConnection.Close();
+
+                    return result;
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.ToString());
+                    return 0;
+                }
+            }
+        }
     }
 }
