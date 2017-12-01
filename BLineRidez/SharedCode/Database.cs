@@ -8,9 +8,12 @@ using System.Data;
 
 namespace BLineRidez.SharedCode
 {
+    public enum LoginValidationResult { Invalid = 0, ValidDriver = 1, ValidCustomer = 2};
+
     public class Database
     {
         private string CONNECTION_STRING;
+        
 
         public Database()
         {
@@ -151,5 +154,27 @@ namespace BLineRidez.SharedCode
                 }
             }
         }
+
+        public LoginValidationResult ValidateLogin(string username, string password)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    connection.Open();
+
+                    string cmdString = String.Format("SELECT dbo.fnValidateLogin('{0}', '{1}')", username, password);
+                    SqlCommand validateLoginCmd = new SqlCommand(cmdString, connection);
+
+                    int serverReturned = (int)validateLoginCmd.ExecuteScalar();
+
+                    return (LoginValidationResult)serverReturned;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    return LoginValidationResult.Invalid;
+                }
+            }
     }
 }
