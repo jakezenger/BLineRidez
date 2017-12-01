@@ -7,18 +7,12 @@ namespace BLineRidez.Models
 {
     public class UserSession
     {
-        public User User { get; }
-        public RideRequest RideRequest { get; set; }
+        public User User { get; set; }
+        public bool IsLoggedIn { get; set; } = false;
 
         public UserSession(User user)
         {
             User = user;
-        }
-
-        public UserSession(User user, RideRequest rideRequest)
-        {
-            User = user;
-            RideRequest = rideRequest;
         }
     }
 }
