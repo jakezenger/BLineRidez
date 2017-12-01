@@ -21,7 +21,22 @@ namespace BLineRidez
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Text;
 
-            // implement database stuff   
+            Database db = new Database();
+
+            LoginValidationResult validationResult = db.ValidateLogin(username, password);
+
+            switch (validationResult)
+            {
+                case LoginValidationResult.Invalid:
+                    // handle an invalid login
+                    break;
+                case LoginValidationResult.ValidCustomer:
+                    Response.Redirect("/Default.aspx");
+                    break;
+                case LoginValidationResult.ValidDriver:
+                    Response.Redirect("/Default.aspx");
+                    break;
+            }
         }
     }
 }
