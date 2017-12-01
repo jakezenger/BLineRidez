@@ -38,16 +38,16 @@ namespace BLineRidez.SharedCode
 
                     if (usernameIsAvailable)
                     {
-                        SqlCommand insertUserCmd = new SqlCommand("spInsertCustomer", connection);
-                        insertUserCmd.CommandType = CommandType.StoredProcedure;
-                        insertUserCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = customer.Username;
-                        insertUserCmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = customer.FirstName;
-                        insertUserCmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = customer.LastName;
-                        insertUserCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
-                        insertUserCmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = customer.Email;
-                        insertUserCmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = customer.Phone;
+                        SqlCommand insertCmd = new SqlCommand("spInsertCustomer", connection);
+                        insertCmd.CommandType = CommandType.StoredProcedure;
+                        insertCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = customer.Username;
+                        insertCmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = customer.FirstName;
+                        insertCmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = customer.LastName;
+                        insertCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
+                        insertCmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = customer.Email;
+                        insertCmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = customer.Phone;
 
-                        insertUserCmd.ExecuteNonQuery();
+                        insertCmd.ExecuteNonQuery();
 
                         connection.Close();
                         return true;
@@ -81,20 +81,20 @@ namespace BLineRidez.SharedCode
 
                     if (usernameIsAvailable)
                     {
-                        SqlCommand insertUserCmd = new SqlCommand("spInsertDriver", connection);
-                        insertUserCmd.CommandType = CommandType.StoredProcedure;
-                        insertUserCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = driver.Username;
-                        insertUserCmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = driver.FirstName;
-                        insertUserCmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = driver.LastName;
-                        insertUserCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
-                        insertUserCmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = driver.Email;
-                        insertUserCmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = driver.Phone;
-                        insertUserCmd.Parameters.Add("@CarMake", SqlDbType.NVarChar).Value = car.Make;
-                        insertUserCmd.Parameters.Add("@CarColor", SqlDbType.NVarChar).Value = car.Color;
-                        insertUserCmd.Parameters.Add("@CarModel", SqlDbType.NVarChar).Value = car.Model;
-                        insertUserCmd.Parameters.Add("@CarYear", SqlDbType.NVarChar).Value = car.Year;
+                        SqlCommand insertCmd = new SqlCommand("spInsertDriver", connection);
+                        insertCmd.CommandType = CommandType.StoredProcedure;
+                        insertCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = driver.Username;
+                        insertCmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = driver.FirstName;
+                        insertCmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = driver.LastName;
+                        insertCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
+                        insertCmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = driver.Email;
+                        insertCmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = driver.Phone;
+                        insertCmd.Parameters.Add("@CarMake", SqlDbType.NVarChar).Value = car.Make;
+                        insertCmd.Parameters.Add("@CarColor", SqlDbType.NVarChar).Value = car.Color;
+                        insertCmd.Parameters.Add("@CarModel", SqlDbType.NVarChar).Value = car.Model;
+                        insertCmd.Parameters.Add("@CarYear", SqlDbType.NVarChar).Value = car.Year;
 
-                        insertUserCmd.ExecuteNonQuery();
+                        insertCmd.ExecuteNonQuery();
 
                         connection.Close();
                         return true;
@@ -109,6 +109,45 @@ namespace BLineRidez.SharedCode
                 {
                     Console.WriteLine(e.ToString());
                     return false;
+                }
+            }
+        }
+
+        public void AddRequest(RideRequest rideRequest)
+        {
+            using(SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand insertCmd = new SqlCommand("spInsertRequest", connection);
+                    insertCmd.CommandType = CommandType.StoredProcedure;
+
+                    insertCmd.Parameters.Add("@CustomerID", SqlDbType.NVarChar).Value = rideRequest.Customer.CustomerID;
+                    insertCmd.Parameters.Add("@PickUpDate", SqlDbType.NVarChar).Value = rideRequest.PickupDate;
+
+                    // Pickup address parameters...
+                    insertCmd.Parameters.Add("@PickUpLine1", SqlDbType.NVarChar).Value = rideRequest.PickupAddress.Line1;
+                    insertCmd.Parameters.Add("@PickUpLine2", SqlDbType.NVarChar).Value = rideRequest.PickupAddress.Line2;
+                    insertCmd.Parameters.Add("@PickUpCity", SqlDbType.NVarChar).Value = rideRequest.PickupAddress.City;
+                    insertCmd.Parameters.Add("@PickUpState", SqlDbType.NVarChar).Value = rideRequest.PickupAddress.State;
+                    insertCmd.Parameters.Add("@PickUpZipCode", SqlDbType.NVarChar).Value = rideRequest.PickupAddress.Zip;
+
+                    // Destination address parameters...
+                    insertCmd.Parameters.Add("@DestinationLine1", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.Line1;
+                    insertCmd.Parameters.Add("@DestinationLine2", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.Line2;
+                    insertCmd.Parameters.Add("@DestinationCity", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.City;
+                    insertCmd.Parameters.Add("@DestinationState", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.State;
+                    insertCmd.Parameters.Add("@DestinationZipCode", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.Zip;
+
+                    insertCmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
                 }
             }
         }
