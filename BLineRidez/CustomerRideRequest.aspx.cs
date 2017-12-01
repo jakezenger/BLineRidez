@@ -15,10 +15,15 @@ namespace BLineRidez
         {
             UserSession session = (UserSession)Session["userSession"];
 
-            if (!session.IsLoggedIn)
+            if (session != null)
             {
-                Response.Redirect("~/Login.aspx");
+                if (!session.IsLoggedIn)
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
             }
+            else
+                Response.Redirect("~/Login.aspx");
         }
 
         protected void RequestRideButton_Click(object sender, EventArgs e)
