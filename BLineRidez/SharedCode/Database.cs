@@ -165,7 +165,7 @@ namespace BLineRidez.SharedCode
                 {
                     connection.Open();
 
-                    SqlCommand GetCustomerCmd = new SqlCommand("spGetUser", connection);
+                    SqlCommand GetCustomerCmd = new SqlCommand("spGetCustomer", connection);
                     GetCustomerCmd.CommandType = CommandType.StoredProcedure;
                     GetCustomerCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = username;
                     GetCustomerCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
@@ -199,7 +199,7 @@ namespace BLineRidez.SharedCode
                 {
                     connection.Open();
 
-                    SqlCommand GetDriverCmd = new SqlCommand("spGetUser", connection);
+                    SqlCommand GetDriverCmd = new SqlCommand("spGetDriver", connection);
                     GetDriverCmd.CommandType = CommandType.StoredProcedure;
                     GetDriverCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = username;
                     GetDriverCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
