@@ -11,9 +11,14 @@ namespace BLineRidez.Models
         public string Line2 { get; }
         public string City { get; }
         public string State { get; }
-        public string Zip { get; }
+        public int Zip { get; }
 
-        public Address(string line1, string line2, string city, string state, string zip)
+        public Address()
+        {
+
+        }
+
+        public Address(string line1, string line2, string city, string state, int zip)
         {
             Line1 = line1;
             Line2 = line2;

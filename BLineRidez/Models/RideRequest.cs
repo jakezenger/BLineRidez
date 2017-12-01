@@ -16,7 +16,7 @@ namespace BLineRidez.Models
         public DateTime PickupDate { get; set; }
         public DateTime DropoffDate { get; set; }
 
-        public RideRequest(Customer customer, Address pickupAddress, Address dropoffAddress, Driver driver, DateTime requestSubmissionDate, DateTime pickupDate, DateTime dropoffDate)
+        public RideRequest(Customer customer, Address pickupAddress, Address dropoffAddress, DateTime requestSubmissionDate, DateTime pickupDate, Driver driver = null, DateTime dropoffDate = new DateTime())
         {
             Customer = customer;
             PickupAddress = pickupAddress;

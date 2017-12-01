@@ -155,6 +155,46 @@ namespace BLineRidez.SharedCode
             }
         }
 
+        public IList<RideRequest> GetUnfulfilledRequests()
+        {
+            IList<RideRequest> requests = new List<RideRequest>();
+
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetCustomerCmd = new SqlCommand("spGetUnfulfilledRequests", connection);
+                    GetCustomerCmd.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = GetCustomerCmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Customer customer = GetCustomer((int)reader["CustomerID"]);
+                            Address pickupAddress = GetAddress((int)reader["PickUpAddressID"]);
+                            Address destinationAddress = GetAddress((int)reader["DestinationAddressID"]);
+                            DateTime submissionDate = (DateTime)reader["SubmissionDate"];
+                            DateTime pickupDate = (DateTime)reader["PickUpDate"];
+
+                            RideRequest request = new RideRequest(customer, pickupAddress, destinationAddress, submissionDate, pickupDate);
+                            requests.Add(request);
+                        }
+
+                        connection.Close();
+                        return requests;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return requests;
+                }
+            }
+        }
+
         public Customer GetCustomer(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
@@ -186,6 +226,72 @@ namespace BLineRidez.SharedCode
                     Console.WriteLine(e.ToString());
                     connection.Close();
                     return customer;
+                }
+            }
+        }
+
+        public Address GetAddress(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                Address address = new Address();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetCustomerCmd = new SqlCommand("spGetAddressFromID", connection);
+                    GetCustomerCmd.CommandType = CommandType.StoredProcedure;
+                    GetCustomerCmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                    using (var reader = GetCustomerCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        address = new Address((string)reader["Line1"], (string)reader["Line2"], (string)reader["City"], (string)reader["State"], GetZipCode((int)reader["ZipCodeID"]));
+
+                        connection.Close();
+                        return address;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return address;
+                }
+            }
+        }
+
+        public int GetZipCode(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                int zipCode = 0;
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetCustomerCmd = new SqlCommand("spGetZipCodeFromID", connection);
+                    GetCustomerCmd.CommandType = CommandType.StoredProcedure;
+                    GetCustomerCmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                    using (var reader = GetCustomerCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        zipCode = (int)reader["ZipCode"];
+
+                        connection.Close();
+                        return zipCode;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return zipCode;
                 }
             }
         }
@@ -238,7 +344,7 @@ namespace BLineRidez.SharedCode
 
                     SqlCommand GetCarCmd = new SqlCommand("spGetCar", connection);
                     GetCarCmd.CommandType = CommandType.StoredProcedure;
-                    GetCarCmd.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+                    GetCarCmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
                     using (var reader = GetCarCmd.ExecuteReader())
                     {
@@ -255,6 +361,39 @@ namespace BLineRidez.SharedCode
                     Console.WriteLine(e.ToString());
                     connection.Close();
                     return car;
+                }
+            }
+        }
+
+        private Customer GetCustomer(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                Customer customer = new Customer();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetCarCmd = new SqlCommand("spGetCustomerFromID", connection);
+                    GetCarCmd.CommandType = CommandType.StoredProcedure;
+                    GetCarCmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+                    using (var reader = GetCarCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        customer = new Customer();
+
+                        connection.Close();
+                        return customer;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return customer;
                 }
             }
         }
