@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLineRidez.Models;
+using BLineRidez.SharedCode;
 
 namespace BLineRidez
 {
@@ -22,10 +23,14 @@ namespace BLineRidez
             string lastName = CustomerLastNameTextBox.Text;
             string email = CustomerEmailTextBox.Text;
             string phone = CustomerPhoneTextBox.Text;
+            string password = "";
 
-            Customer customer = new Customer(username, firstName, lastName, email, phone); 
+            Customer customer = new Customer(username, firstName, lastName, email, phone);
 
-            //TODO: Validate?, insert to DB, navigate to home page
+            // TODO: Validate customer data fields
+
+            Database db = new Database();
+            db.AddCustomer(customer, password);
         }
 
         protected void DriverSubmitButton_Click(object sender, EventArgs e)
@@ -35,6 +40,7 @@ namespace BLineRidez
             string lastName = DriverLastNameTextBox.Text;
             string email = DriverEmailTextBox.Text;
             string phone = DriverPhoneTextBox.Text;
+            string password = "";
 
             string make = CarMakeTextBox.Text;
             string model = CarModelTextBox.Text;
@@ -44,7 +50,10 @@ namespace BLineRidez
             Car car = new Car(make, model, color, year);
             Driver driver = new Driver(car, false, username, firstName, lastName, email, phone);
 
-            //TODO: Validate?, insert to DB, navigate to home page
+            //TODO: Validate driver data fields
+
+            Database db = new Database();
+            db.AddDriver(driver, password);
         }
     }
 }

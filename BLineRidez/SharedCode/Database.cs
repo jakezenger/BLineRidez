@@ -69,7 +69,7 @@ namespace BLineRidez.SharedCode
             }
         }
 
-        public bool AddDriver(Driver driver, Car car, string password)
+        public bool AddDriver(Driver driver, string password)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -92,10 +92,10 @@ namespace BLineRidez.SharedCode
                         insertCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
                         insertCmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = driver.Email;
                         insertCmd.Parameters.Add("@PhoneNum", SqlDbType.NVarChar).Value = driver.Phone;
-                        insertCmd.Parameters.Add("@CarMake", SqlDbType.NVarChar).Value = car.Make;
-                        insertCmd.Parameters.Add("@CarColor", SqlDbType.NVarChar).Value = car.Color;
-                        insertCmd.Parameters.Add("@CarModel", SqlDbType.NVarChar).Value = car.Model;
-                        insertCmd.Parameters.Add("@CarYear", SqlDbType.NVarChar).Value = car.Year;
+                        insertCmd.Parameters.Add("@CarMake", SqlDbType.NVarChar).Value = driver.Car.Make;
+                        insertCmd.Parameters.Add("@CarColor", SqlDbType.NVarChar).Value = driver.Car.Color;
+                        insertCmd.Parameters.Add("@CarModel", SqlDbType.NVarChar).Value = driver.Car.Model;
+                        insertCmd.Parameters.Add("@CarYear", SqlDbType.NVarChar).Value = driver.Car.Year;
 
                         insertCmd.ExecuteNonQuery();
 
@@ -151,6 +151,106 @@ namespace BLineRidez.SharedCode
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
+                }
+            }
+        }
+
+        public Customer GetCustomer(string username, string password)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                Customer customer = new Customer();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetCustomerCmd = new SqlCommand("spGetUser", connection);
+                    GetCustomerCmd.CommandType = CommandType.StoredProcedure;
+
+                    using (var reader = GetCustomerCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        customer = new Customer((string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["Phone"], (int)reader["ID"]);
+
+                        connection.Close();
+                        return customer;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return customer;
+                }
+            }
+        }
+
+        public Driver GetDriver(string username, string password)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                Driver driver = new Driver();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetCustomerCmd = new SqlCommand("spGetUser", connection);
+                    GetCustomerCmd.CommandType = CommandType.StoredProcedure;
+                    GetCustomerCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = username;
+                    GetCustomerCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
+
+
+                    using (var reader = GetCustomerCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        driver = new Driver(GetCar((int)reader["CarID"]), (bool)reader["IsActive"], (string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["Phone"], (int)reader["ID"]);
+
+                        connection.Close();
+                        return driver;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return driver;
+                }
+            }
+        }
+
+        private Car GetCar(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                Car car = new Car();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetCarCmd = new SqlCommand("spGetCar", connection);
+                    GetCarCmd.CommandType = CommandType.StoredProcedure;
+                    GetCarCmd.Parameters.Add("@id", SqlDbType.NVarChar).Value = id;
+
+                    using (var reader = GetCarCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        car = new Car((string)reader["Make"], (string)reader["Model"], (string)reader["Color"], (int)reader["Year"]);
+
+                        connection.Close();
+                        return car;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return car;
                 }
             }
         }

@@ -13,6 +13,11 @@ namespace BLineRidez.Models
         public string Color { get; }
         public int Year { get; }
 
+        public Car()
+        {
+
+        }
+
         public Car(string make, string model, string color, int year)
         {
             Make = make;

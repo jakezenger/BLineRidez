@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BLineRidez.SharedCode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace BLineRidez.Models
 {
-    abstract public class User
+    public class User
     {
         public int ID { get; set; }
         public string Username { get; }
@@ -14,8 +15,14 @@ namespace BLineRidez.Models
         public string Email { get; }
         public string Phone { get; }
 
-        public User(string username, string firstName, string lastName, string email, string phone)
+        public User()
         {
+
+        }
+
+        public User(int id, string username, string firstName, string lastName, string email, string phone)
+        {
+            ID = id;
             Username = username;
             FirstName = firstName;
             LastName = lastName;

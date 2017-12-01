@@ -31,9 +31,11 @@ namespace BLineRidez
                     // handle an invalid login
                     break;
                 case LoginValidationResult.ValidCustomer:
+                    Session["User"] = db.GetCustomer(username, password);
                     Response.Redirect("/Default.aspx");
                     break;
                 case LoginValidationResult.ValidDriver:
+                    Session["User"] = db.GetDriver(username, password);
                     Response.Redirect("/Default.aspx");
                     break;
             }
