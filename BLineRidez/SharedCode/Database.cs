@@ -168,11 +168,13 @@ namespace BLineRidez.SharedCode
 
                     int serverReturned = (int)validateLoginCmd.ExecuteScalar();
 
+                    connection.Close();
                     return (LoginValidationResult)serverReturned;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
+                    connection.Close();
                     return LoginValidationResult.Invalid;
                 }
             }
