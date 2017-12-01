@@ -23,7 +23,7 @@ namespace BLineRidez
             string lastName = CustomerLastNameTextBox.Text;
             string email = CustomerEmailTextBox.Text;
             string phone = CustomerPhoneTextBox.Text;
-            string password = "";
+            string password = CustomerPasswordTextBox.Text;
 
             Customer customer = new Customer(username, firstName, lastName, email, phone);
 
@@ -40,7 +40,7 @@ namespace BLineRidez
             string lastName = DriverLastNameTextBox.Text;
             string email = DriverEmailTextBox.Text;
             string phone = DriverPhoneTextBox.Text;
-            string password = "";
+            string password = DriverPasswordTextBox.Text;
 
             string make = CarMakeTextBox.Text;
             string model = CarModelTextBox.Text;

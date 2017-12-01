@@ -22,6 +22,15 @@ namespace BLineRidez {
         protected global::System.Web.UI.WebControls.TextBox CustomerUsernameTextBox;
         
         /// <summary>
+        /// CustomerPasswordTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CustomerPasswordTextBox;
+        
+        /// <summary>
         /// CustomerFirstNameTextBox control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,15 @@ namespace BLineRidez {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox DriverUsernameTextBox;
+        
+        /// <summary>
+        /// DriverPasswordTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DriverPasswordTextBox;
         
         /// <summary>
         /// DriverFirstNameTextBox control.

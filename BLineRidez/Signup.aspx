@@ -14,6 +14,9 @@
             <p>Username:
                 <asp:TextBox ID="CustomerUsernameTextBox" runat="server"></asp:TextBox>
             </p>
+            <p>Password:
+                <asp:TextBox ID="CustomerPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
+            </p>
             <p>First Name:
                 <asp:TextBox ID="CustomerFirstNameTextBox" runat="server"></asp:TextBox>
             </p>
@@ -34,6 +37,9 @@
             <h2>Driver Account</h2>
             <p>Username:
                 <asp:TextBox ID="DriverUsernameTextBox" runat="server"></asp:TextBox>
+            </p>
+            <p>Password:
+                <asp:TextBox ID="DriverPasswordTextBox" runat="server" TextMode="Password"></asp:TextBox>
             </p>
             <p>First Name:
                 <asp:TextBox ID="DriverFirstNameTextBox" runat="server"></asp:TextBox>
