@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using BLineRidez.Models;
+using BLineRidez.SharedCode;
 
 namespace BLineRidez
 {
@@ -39,6 +40,9 @@ namespace BLineRidez
 
             DateTime pickupDate = Convert.ToDateTime(PickupTimeTextBox.Text);
             RideRequest rideRequest = new RideRequest((int)rideRequestID, (Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
+            
+            Database db = new Database();
+            db.AddRequest(rideRequest);
         }
 
         protected void AsapButton_Click(object sender, EventArgs e)

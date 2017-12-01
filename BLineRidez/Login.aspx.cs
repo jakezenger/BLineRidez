@@ -40,7 +40,7 @@ namespace BLineRidez
                     // Set up the driver's user session
                     Session["userSession"] = new UserSession(db.GetDriver(username, password));
 
-                    Response.Redirect("/Default.aspx");
+                    Response.Redirect("~/DriverRideRequest.aspx");
                     break;
             }
         }

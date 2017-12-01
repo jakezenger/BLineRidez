@@ -145,6 +145,7 @@
     <Content Include="Login.aspx" />
     <Content Include="Signup.aspx" />
     <Content Include="CustomerRideRequest.aspx" />
+    <Content Include="DriverRideRequest.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -257,6 +258,13 @@
     </Compile>
     <Compile Include="CustomerRideRequest.aspx.designer.cs">
       <DependentUpon>CustomerRideRequest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DriverRideRequest.aspx.cs">
+      <DependentUpon>DriverRideRequest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DriverRideRequest.aspx.designer.cs">
+      <DependentUpon>DriverRideRequest.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
