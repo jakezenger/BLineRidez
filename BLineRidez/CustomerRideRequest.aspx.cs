@@ -21,7 +21,7 @@ namespace BLineRidez
             string pickupLine2 = PickupLine2TextBox.Text;
             string pickupCity =  PickupCityTextBox.Text;
             string pickupState = PickupStateTextBox.Text;
-            string pickupZip =   PickupZipTextBox.Text;
+            int pickupZip = Convert.ToInt32(PickupZipTextBox.Text);
 
             Address pickupAddress = new Address(pickupLine1, pickupLine2, pickupCity, pickupState, pickupZip);
 
@@ -29,7 +29,7 @@ namespace BLineRidez
             string dropoffLine2 = DropoffLine2TextBox.Text;
             string dropoffCity =  DropoffCityTextBox.Text;
             string dropoffState = DropoffStateTextBox.Text;
-            string dropoffZip =   DropoffZipTextBox.Text;
+            int dropoffZip = Convert.ToInt32(DropoffZipTextBox.Text);
 
             Address dropoffAddress = new Address(dropoffLine1, dropoffLine2, dropoffCity, dropoffState, dropoffZip);
 
