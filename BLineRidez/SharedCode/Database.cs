@@ -8,12 +8,12 @@ using System.Data;
 
 namespace BLineRidez.SharedCode
 {
-    public enum LoginValidationResult { Invalid = 0, ValidDriver = 1, ValidCustomer = 2};
+    public enum LoginValidationResult { Invalid = 0, ValidDriver = 1, ValidCustomer = 2 };
 
     public class Database
     {
         private string CONNECTION_STRING;
-        
+
 
         public Database()
         {
@@ -118,7 +118,7 @@ namespace BLineRidez.SharedCode
 
         public void AddRequest(RideRequest rideRequest)
         {
-            using(SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
                 try
                 {

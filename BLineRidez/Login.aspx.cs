@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BLineRidez.SharedCode;
 
 namespace BLineRidez
 {
@@ -19,7 +20,7 @@ namespace BLineRidez
             string username = UsernameTextBox.Text;
             string password = PasswordTextBox.Text;
 
-            //TODO: Match against DB, navigate to home or show error           
+            // implement database stuff   
         }
     }
 }
