@@ -13,7 +13,12 @@ namespace BLineRidez
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            UserSession session = (UserSession)Session["userSession"];
+
+            if (!session.IsLoggedIn)
+            {
+                Response.Redirect("~/Login.aspx");
+            }
         }
 
         protected void RequestRideButton_Click(object sender, EventArgs e)

@@ -15,32 +15,39 @@ namespace BLineRidez
         List<RideRequest> requestList = (List<RideRequest>)db.GetUnfulfilledRequests();
         protected void Page_Load(object sender, EventArgs e)
         {
+            UserSession session = (UserSession)Session["userSession"];
 
-            foreach (RideRequest request in requestList)
+            if (!session.IsLoggedIn)
             {
-                // TODO: Add a table header
-                TableRow row = new TableRow();
-                
-                List<TableCell> cellList = new List<TableCell>(5);
-
-                for(int i = 0; i < 5; i++)
-                {
-                    cellList.Add(new TableCell());
-                }
-                cellList[0].Text = request.ID.ToString();
-                cellList[1].Text = request.Customer.FirstName;
-                cellList[2].Text = request.PickupAddress.Line1 + ", " + request.PickupAddress.City;
-                cellList[3].Text = request.DropoffAddress.Line1 + ", " + request.DropoffAddress.City;
-                cellList[4].Text = request.PickupDate.ToString();
-
-                foreach (TableCell cell in cellList)
-                {
-                    row.Cells.Add(cell);
-                }                
-
-                RideRequestTable.Rows.Add(row);
+                Response.Redirect("~/Login.aspx");
             }
+            else
+            {
+                foreach (RideRequest request in requestList)
+                {
+                    // TODO: Add a table header
+                    TableRow row = new TableRow();
 
+                    List<TableCell> cellList = new List<TableCell>(5);
+
+                    for (int i = 0; i < 5; i++)
+                    {
+                        cellList.Add(new TableCell());
+                    }
+                    cellList[0].Text = request.ID.ToString();
+                    cellList[1].Text = request.Customer.FirstName;
+                    cellList[2].Text = request.PickupAddress.Line1 + ", " + request.PickupAddress.City;
+                    cellList[3].Text = request.DropoffAddress.Line1 + ", " + request.DropoffAddress.City;
+                    cellList[4].Text = request.PickupDate.ToString();
+
+                    foreach (TableCell cell in cellList)
+                    {
+                        row.Cells.Add(cell);
+                    }
+
+                    RideRequestTable.Rows.Add(row);
+                }
+            }
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
