@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CustomerRideRequest.aspx.cs" Inherits="BLineRidez.WebForm1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CustomerRideRequest.aspx.cs" Inherits="BLineRidez.CustomerRideRequestForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h1>Request a Ride</h1>
@@ -29,6 +29,10 @@
                 Zip Code: 
                 <asp:TextBox ID="PickupZipTextBox" runat="server"></asp:TextBox>
             </p>
+            <p>
+                Pickup Time: 
+                <asp:TextBox ID="PickupTimeTextBox" runat="server"></asp:TextBox>
+            </p>
         </div>
         <div class ="col-md-4" align="right">
             <h4>Dropoff</h4>
@@ -51,6 +55,9 @@
             <p>
                 Zip Code: 
                 <asp:TextBox ID="DropoffZipTextBox" runat="server"></asp:TextBox>
+            </p>
+            <p align="left">
+                <asp:Button ID="AsapButton" runat="server" Text="ASAP" OnClick="AsapButton_Click" />
             </p>
         </div>
     </div>

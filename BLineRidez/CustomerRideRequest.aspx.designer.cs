@@ -10,7 +10,7 @@
 namespace BLineRidez {
     
     
-    public partial class WebForm1 {
+    public partial class CustomerRideRequestForm {
         
         /// <summary>
         /// PickupLine1TextBox control.
@@ -58,6 +58,15 @@ namespace BLineRidez {
         protected global::System.Web.UI.WebControls.TextBox PickupZipTextBox;
         
         /// <summary>
+        /// PickupTimeTextBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox PickupTimeTextBox;
+        
+        /// <summary>
         /// DropoffLine1TextBox control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,15 @@ namespace BLineRidez {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox DropoffZipTextBox;
+        
+        /// <summary>
+        /// AsapButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AsapButton;
         
         /// <summary>
         /// RequestRideButton control.

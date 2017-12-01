@@ -8,7 +8,7 @@ using BLineRidez.Models;
 
 namespace BLineRidez
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class CustomerRideRequestForm : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -33,7 +33,17 @@ namespace BLineRidez
 
             Address dropoffAddress = new Address(dropoffLine1, dropoffLine2, dropoffCity, dropoffState, dropoffZip);
 
-            // TODO: Make and instance of RideRequest and set CustomerInstance.RideRequest to it.
+            UserSession userSession = (UserSession)Session["userSession"];
+
+            uint rideRequestID = 234; // TODO: Generate rideRequest ID or make constructor without id parameter
+
+            DateTime pickupDate = Convert.ToDateTime(PickupTimeTextBox.Text);
+            RideRequest rideRequest = new RideRequest((int)rideRequestID, (Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
+        }
+
+        protected void AsapButton_Click(object sender, EventArgs e)
+        {
+            PickupTimeTextBox.Text = DateTime.Now.ToString();
         }
     }
 }
