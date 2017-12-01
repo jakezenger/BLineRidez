@@ -7,16 +7,16 @@ namespace BLineRidez.Models
 {
     public class Customer
     {
-        public int CustomerID { get; set; }
-        public string Username { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
+        //public int CustomerID { get; }
+        public string Username { get; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string Email { get; }
+        public string Phone { get; }
 
-        public Customer(int customerID, string username, string firstName, string lastName, string email, string phone)
+        public Customer(string username, string firstName, string lastName, string email, string phone)
         {
-            CustomerID = customerID;
+            //CustomerID = customerID;
             Username = username;
             FirstName = firstName;
             LastName = lastName;

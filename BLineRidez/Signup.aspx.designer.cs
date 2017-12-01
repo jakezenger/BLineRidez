@@ -10,7 +10,7 @@
 namespace BLineRidez {
     
     
-    public partial class WebForm1 {
+    public partial class SignupForm {
         
         /// <summary>
         /// CustomerUsernameTextBox control.

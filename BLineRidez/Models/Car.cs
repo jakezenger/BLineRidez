@@ -7,15 +7,15 @@ namespace BLineRidez.Models
 {
     public class Car
     {
-        public int CarID { get; }
+        //public int CarID { get; }
         public string Make { get; }
         public string Model { get; }
         public string Color { get; }
         public int Year { get; }
 
-        public Car(int carID, string make, string model, string color, int year)
+        public Car(string make, string model, string color, int year)
         {
-            CarID = carID;
+            //CarID = carID;
             Make = make;
             Model = model;
             Color = color;
