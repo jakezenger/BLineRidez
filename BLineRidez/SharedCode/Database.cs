@@ -34,7 +34,7 @@ namespace BLineRidez.SharedCode
                 {
                     connection.Open();
 
-                    string cmdString = String.Format("SELECT dbo.fnCheckUserNameAvailability({0})", customer.Username);
+                    string cmdString = String.Format("SELECT dbo.fnCheckUserNameAvailability('{0}')", customer.Username);
                     SqlCommand checkUsernameAvailabilityCmd = new SqlCommand(cmdString, connection);
 
                     bool usernameIsAvailable = (bool)checkUsernameAvailabilityCmd.ExecuteScalar();
@@ -77,7 +77,7 @@ namespace BLineRidez.SharedCode
                 {
                     connection.Open();
 
-                    string cmdString = String.Format("SELECT dbo.fnCheckUserNameAvailability({0})", driver.Username);
+                    string cmdString = String.Format("SELECT dbo.fnCheckUserNameAvailability('{0}')", driver.Username);
                     SqlCommand checkUsernameAvailabilityCmd = new SqlCommand(cmdString, connection);
 
                     bool usernameIsAvailable = (bool)checkUsernameAvailabilityCmd.ExecuteScalar();
