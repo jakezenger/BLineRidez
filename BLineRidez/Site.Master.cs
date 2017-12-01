@@ -19,6 +19,7 @@ namespace BLineRidez
             }
             else
             {
+                // Get the current userSession
                 UserSession userSession = (UserSession)Session["userSession"];
 
                 if (userSession.IsLoggedIn)
