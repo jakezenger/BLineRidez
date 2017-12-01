@@ -7,7 +7,7 @@ namespace BLineRidez.Models
 {
     public class Driver
     {
-        //public int DriverID { get; set; }
+        //public int ID { get; set; }
         public Car Car { get; }
         public bool IsActive { get; set; }
         public string Username { get; }

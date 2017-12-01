@@ -124,7 +124,7 @@ namespace BLineRidez.SharedCode
                     SqlCommand insertCmd = new SqlCommand("spInsertRequest", connection);
                     insertCmd.CommandType = CommandType.StoredProcedure;
 
-                    insertCmd.Parameters.Add("@CustomerID", SqlDbType.NVarChar).Value = rideRequest.Customer.CustomerID;
+                    insertCmd.Parameters.Add("@CustomerID", SqlDbType.NVarChar).Value = rideRequest.Customer.ID;
                     insertCmd.Parameters.Add("@PickUpDate", SqlDbType.NVarChar).Value = rideRequest.PickupDate;
 
                     // Pickup address parameters...

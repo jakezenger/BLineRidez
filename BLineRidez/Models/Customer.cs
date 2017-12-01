@@ -7,7 +7,7 @@ namespace BLineRidez.Models
 {
     public class Customer
     {
-        //public int CustomerID { get; set; }
+        public int ID { get; set; }
         public string Username { get; }
         public string FirstName { get; }
         public string LastName { get; }
