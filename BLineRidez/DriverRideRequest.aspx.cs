@@ -20,8 +20,13 @@ namespace BLineRidez
             {
                 // TODO: Add a table header
                 TableRow row = new TableRow();
-
+                
                 List<TableCell> cellList = new List<TableCell>(5);
+
+                for(int i = 0; i < 5; i++)
+                {
+                    cellList.Add(new TableCell());
+                }
                 cellList[0].Text = request.ID.ToString();
                 cellList[1].Text = request.Customer.FirstName;
                 cellList[2].Text = request.PickupAddress.Line1 + ", " + request.PickupAddress.City;
@@ -41,7 +46,7 @@ namespace BLineRidez
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             UserSession session = (UserSession)Session["userSession"];
-            db.FulfillRideRequest(session.User.ID, Convert.ToInt32(RequestIdTextBox.Text));
+            db.FulfillRideRequest(session.User.ID, int.Parse(RequestIdTextBox.Text));
             //TODO: Make ETA viewable to Customer
         }
     }

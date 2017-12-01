@@ -22,7 +22,7 @@ namespace BLineRidez
             string pickupLine2 = PickupLine2TextBox.Text;
             string pickupCity =  PickupCityTextBox.Text;
             string pickupState = PickupStateTextBox.Text;
-            int pickupZip = Convert.ToInt32(PickupZipTextBox.Text);
+            int pickupZip = int.Parse(PickupZipTextBox.Text);
 
             Address pickupAddress = new Address(pickupLine1, pickupLine2, pickupCity, pickupState, pickupZip);
 
@@ -30,14 +30,13 @@ namespace BLineRidez
             string dropoffLine2 = DropoffLine2TextBox.Text;
             string dropoffCity =  DropoffCityTextBox.Text;
             string dropoffState = DropoffStateTextBox.Text;
-            int dropoffZip = Convert.ToInt32(DropoffZipTextBox.Text);
+            int dropoffZip = int.Parse(DropoffZipTextBox.Text);
 
             Address dropoffAddress = new Address(dropoffLine1, dropoffLine2, dropoffCity, dropoffState, dropoffZip);
 
             UserSession userSession = (UserSession)Session["userSession"];
 
-            uint rideRequestID = 234; // TODO: Generate rideRequest ID or make constructor without id parameter
-
+            uint rideRequestID = 0;
             DateTime pickupDate = Convert.ToDateTime(PickupTimeTextBox.Text);
             RideRequest rideRequest = new RideRequest((int)rideRequestID, (Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
             
