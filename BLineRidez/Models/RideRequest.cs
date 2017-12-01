@@ -7,6 +7,7 @@ namespace BLineRidez.Models
 {
     public class RideRequest
     {
+        //public int RideRequestID { get; set; }
         public Customer Customer { get; }
         public Address PickupAddress { get; }
         public Address DropoffAddress { get; set; }
