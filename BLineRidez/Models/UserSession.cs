@@ -8,7 +8,7 @@ namespace BLineRidez.Models
     public class UserSession
     {
         public User User { get; set; }
-        public bool IsLoggedIn { get; set; };
+        public bool IsLoggedIn { get; set; }
 
         public UserSession()
         {

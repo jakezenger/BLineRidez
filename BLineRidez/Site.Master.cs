@@ -17,6 +17,21 @@ namespace BLineRidez
             {
                 Session["userSession"] = new UserSession();
             }
+            else
+            {
+                UserSession userSession = (UserSession)Session["userSession"];
+
+                if (userSession.IsLoggedIn)
+                {
+                    UserGreetingLabel.Text = String.Format("Hello {0}!", userSession.User.FirstName);
+                    UserGreetingLabel.Visible = true;
+                }
+                else
+                {
+                    UserGreetingLabel.Text = "";
+                    UserGreetingLabel.Visible = false;
+                }
+            }
         }
     }
 }

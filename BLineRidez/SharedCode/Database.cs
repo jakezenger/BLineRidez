@@ -167,12 +167,14 @@ namespace BLineRidez.SharedCode
 
                     SqlCommand GetCustomerCmd = new SqlCommand("spGetUser", connection);
                     GetCustomerCmd.CommandType = CommandType.StoredProcedure;
+                    GetCustomerCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = username;
+                    GetCustomerCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
 
                     using (var reader = GetCustomerCmd.ExecuteReader())
                     {
                         reader.Read();
 
-                        customer = new Customer((string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["Phone"], (int)reader["ID"]);
+                        customer = new Customer((string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["PhoneNum"], (int)reader["ID"]);
 
                         connection.Close();
                         return customer;
@@ -197,17 +199,17 @@ namespace BLineRidez.SharedCode
                 {
                     connection.Open();
 
-                    SqlCommand GetCustomerCmd = new SqlCommand("spGetUser", connection);
-                    GetCustomerCmd.CommandType = CommandType.StoredProcedure;
-                    GetCustomerCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = username;
-                    GetCustomerCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
+                    SqlCommand GetDriverCmd = new SqlCommand("spGetUser", connection);
+                    GetDriverCmd.CommandType = CommandType.StoredProcedure;
+                    GetDriverCmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = username;
+                    GetDriverCmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password;
 
 
-                    using (var reader = GetCustomerCmd.ExecuteReader())
+                    using (var reader = GetDriverCmd.ExecuteReader())
                     {
                         reader.Read();
 
-                        driver = new Driver(GetCar((int)reader["CarID"]), (bool)reader["IsActive"], (string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["Phone"], (int)reader["ID"]);
+                        driver = new Driver(GetCar((int)reader["CarID"]), (bool)reader["IsActive"], (string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["PhoneNum"], (int)reader["ID"]);
 
                         connection.Close();
                         return driver;
