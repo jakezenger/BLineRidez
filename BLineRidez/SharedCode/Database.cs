@@ -95,7 +95,7 @@ namespace BLineRidez.SharedCode
                         insertCmd.Parameters.Add("@CarMake", SqlDbType.NVarChar).Value = driver.Car.Make;
                         insertCmd.Parameters.Add("@CarColor", SqlDbType.NVarChar).Value = driver.Car.Color;
                         insertCmd.Parameters.Add("@CarModel", SqlDbType.NVarChar).Value = driver.Car.Model;
-                        insertCmd.Parameters.Add("@CarYear", SqlDbType.NVarChar).Value = driver.Car.Year;
+                        insertCmd.Parameters.Add("@CarYear", SqlDbType.Int).Value = driver.Car.Year;
 
                         insertCmd.ExecuteNonQuery();
 
@@ -127,7 +127,7 @@ namespace BLineRidez.SharedCode
                     SqlCommand insertCmd = new SqlCommand("spInsertRequest", connection);
                     insertCmd.CommandType = CommandType.StoredProcedure;
 
-                    insertCmd.Parameters.Add("@CustomerID", SqlDbType.NVarChar).Value = rideRequest.Customer.ID;
+                    insertCmd.Parameters.Add("@CustomerID", SqlDbType.Int).Value = rideRequest.Customer.ID;
                     insertCmd.Parameters.Add("@PickUpDate", SqlDbType.NVarChar).Value = rideRequest.PickupDate;
 
                     // Pickup address parameters...
@@ -155,6 +155,31 @@ namespace BLineRidez.SharedCode
             }
         }
 
+        public void FulfillRideRequest(int driverID, int requestID)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand fulfillCmd = new SqlCommand("spFulfillRideRequest", connection);
+                    fulfillCmd.CommandType = CommandType.StoredProcedure;
+                    fulfillCmd.Parameters.Add("@RequestID", SqlDbType.Int).Value = requestID;
+                    fulfillCmd.Parameters.Add("@DriverID", SqlDbType.Int).Value = driverID;
+
+                    fulfillCmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                }
+            }
+        }
+
         public IList<RideRequest> GetUnfulfilledRequests()
         {
             IList<RideRequest> requests = new List<RideRequest>();
@@ -177,8 +202,9 @@ namespace BLineRidez.SharedCode
                             Address destinationAddress = GetAddress((int)reader["DestinationAddressID"]);
                             DateTime submissionDate = (DateTime)reader["SubmissionDate"];
                             DateTime pickupDate = (DateTime)reader["PickUpDate"];
+                            int requestID = (int)reader["RequestID"];
 
-                            RideRequest request = new RideRequest(customer, pickupAddress, destinationAddress, submissionDate, pickupDate);
+                            RideRequest request = new RideRequest(requestID, customer, pickupAddress, destinationAddress, submissionDate, pickupDate);
                             requests.Add(request);
                         }
 
