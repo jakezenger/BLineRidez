@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BLineRidez.Models
 {
-    public class Customer
+    public class Customer : User
     {
         public int ID { get; set; }
         public string Username { get; }
