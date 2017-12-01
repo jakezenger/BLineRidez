@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BLineRidez.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,11 @@ namespace BLineRidez
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // Instantiate the UserSession if it doesn't already exist
+            if (Session["userSession"] == null)
+            {
+                Session["userSession"] = new UserSession();
+            }
         }
     }
 }
