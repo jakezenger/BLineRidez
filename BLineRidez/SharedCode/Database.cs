@@ -174,7 +174,8 @@ namespace BLineRidez.SharedCode
                     {
                         reader.Read();
 
-                        customer = new Customer((string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["PhoneNum"], (int)reader["ID"]);
+                        customer = new Customer((string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], 
+                            (string)reader["Email"], (string)reader["PhoneNum"], (int)reader["ID"]);
 
                         connection.Close();
                         return customer;
@@ -209,7 +210,8 @@ namespace BLineRidez.SharedCode
                     {
                         reader.Read();
 
-                        driver = new Driver(GetCar((int)reader["CarID"]), (bool)reader["IsActive"], (string)reader["UserName"], (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["PhoneNum"], (int)reader["ID"]);
+                        driver = new Driver(GetCar((int)reader["CarID"]), (bool)reader["IsActive"], (string)reader["UserName"], 
+                            (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["PhoneNum"], (int)reader["ID"]);
 
                         connection.Close();
                         return driver;
