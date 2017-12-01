@@ -178,5 +178,6 @@ namespace BLineRidez.SharedCode
                     return LoginValidationResult.Invalid;
                 }
             }
+        }
     }
 }
