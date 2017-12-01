@@ -7,20 +7,9 @@ namespace BLineRidez.Models
 {
     public class Customer : User
     {
-        public int ID { get; set; }
-        public string Username { get; }
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string Email { get; }
-        public string Phone { get; }
-
-        public Customer(string username, string firstName, string lastName, string email, string phone)
+        public Customer(string username, string firstName, string lastName, string email, string phone) : base(username, firstName, lastName, email, phone)
         {
-            Username = username;
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            Phone = phone;
+
         }
     }
 }
