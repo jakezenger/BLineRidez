@@ -46,8 +46,9 @@ namespace BLineRidez
             string model = CarModelTextBox.Text;
             string color = CarColorTextBox.Text;
             int year = Convert.ToInt32(CarYearTextBox.Text);
+            string licensePlate = CarLicensePlateTextBox.Text;
 
-            Car car = new Car(make, model, color, year);
+            Car car = new Car(make, model, color, year, licensePlate);
             Driver driver = new Driver(car, false, username, firstName, lastName, email, phone);
 
             //TODO: Validate driver data fields

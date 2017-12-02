@@ -74,6 +74,10 @@
                  <asp:TextBox ID="CarYearTextBox" runat="server"></asp:TextBox>
             </p>
             <p>
+                License Plate:
+                 <asp:TextBox ID="CarLicensePlateTextBox" runat="server"></asp:TextBox>
+            </p>
+            <p>
                 <asp:Button ID="DriverSubmitButton" runat="server" Text="Submit" OnClick="DriverSubmitButton_Click" />
             </p>
         </div>

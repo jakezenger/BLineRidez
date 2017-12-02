@@ -29,6 +29,8 @@ namespace BLineRidez.Models
             DropoffDate = dropoffDate;
         }
 
+        public RideRequest() { ID = 0; }
+
         public RideRequest(Customer customer, Address pickupAddress, Address dropoffAddress, DateTime requestSubmissionDate, DateTime pickupDate, int id = 0)
         {
             Customer = customer;

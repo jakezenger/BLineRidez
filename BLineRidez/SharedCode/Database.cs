@@ -394,6 +394,47 @@ namespace BLineRidez.SharedCode
             }
         }
 
+        public RideRequest GetFulfilledRequest(int customerID)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                RideRequest rideRequest = new RideRequest();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetDriverCmd = new SqlCommand("spGetMostRecentFulfilledRequest", connection);
+                    GetDriverCmd.CommandType = CommandType.StoredProcedure;
+                    GetDriverCmd.Parameters.Add("@customerID", SqlDbType.Int).Value = customerID;
+
+
+                    using (var reader = GetDriverCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        Customer customer = GetCustomer((int)reader["CustomerID"]);
+                        Address pickupAddress = GetAddress((int)reader["PickUpAddressID"]);
+                        Address destinationAddress = GetAddress((int)reader["DestinationAddressID"]);
+                        DateTime submissionDate = (DateTime)reader["SubmissionDate"];
+                        DateTime pickupDate = (DateTime)reader["PickUpDate"];
+                        int requestID = (int)reader["RequestID"];
+
+                        rideRequest = new RideRequest(customer, pickupAddress, destinationAddress, submissionDate, pickupDate, requestID);
+
+                        connection.Close();
+                        return rideRequest;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return rideRequest;
+                }
+            }
+        }
+
         public Driver GetDriver(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
