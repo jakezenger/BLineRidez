@@ -116,6 +116,39 @@ namespace BLineRidez.SharedCode
             }
         }
 
+        public void AddPaymentDetails(PaymentDetails paymentDetails, int requestID)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand insertCmd = new SqlCommand("spAddPaymentDetails", connection);
+                    insertCmd.CommandType = CommandType.StoredProcedure;
+                    insertCmd.Parameters.Add("@RequestID", SqlDbType.Int).Value = requestID;
+                    insertCmd.Parameters.Add("@BillingFirstName", SqlDbType.NVarChar).Value = paymentDetails.FirstName;
+                    insertCmd.Parameters.Add("@BillingLastName", SqlDbType.NVarChar).Value = paymentDetails.LastName;
+                    insertCmd.Parameters.Add("@CardNum", SqlDbType.NChar).Value = paymentDetails.CardNum;
+                    insertCmd.Parameters.Add("@SecurityCode", SqlDbType.NChar).Value = paymentDetails.SecurityCode;
+                    insertCmd.Parameters.Add("@BillingAddressLine1", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.Line1;
+                    insertCmd.Parameters.Add("@BillingAddressLine2", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.Line2;
+                    insertCmd.Parameters.Add("@BillingAddressCity", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.City;
+                    insertCmd.Parameters.Add("@BillingAddressState", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.State;
+                    insertCmd.Parameters.Add("@BillingAddressZipCode", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.Zip;
+
+                    insertCmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                }
+            }
+        }
+
         public int AddRequest(RideRequest rideRequest)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))

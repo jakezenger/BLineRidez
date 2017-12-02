@@ -218,6 +218,7 @@
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\PaymentDetails.cs" />
     <Compile Include="Models\UserSession.cs" />
     <Compile Include="Models\Driver.cs" />
     <Compile Include="Models\RideRequest.cs" />
