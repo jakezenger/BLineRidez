@@ -96,6 +96,7 @@ namespace BLineRidez.SharedCode
                         insertCmd.Parameters.Add("@CarColor", SqlDbType.NVarChar).Value = driver.Car.Color;
                         insertCmd.Parameters.Add("@CarModel", SqlDbType.NVarChar).Value = driver.Car.Model;
                         insertCmd.Parameters.Add("@CarYear", SqlDbType.Int).Value = driver.Car.Year;
+                        insertCmd.Parameters.Add("@CarLicensePlate", SqlDbType.NChar).Value = driver.Car.LicensePlate;
 
                         insertCmd.ExecuteNonQuery();
 
@@ -447,7 +448,7 @@ namespace BLineRidez.SharedCode
                     {
                         reader.Read();
 
-                        car = new Car((string)reader["Make"], (string)reader["Model"], (string)reader["Color"], (int)reader["Year"]);
+                        car = new Car((string)reader["Make"], (string)reader["Model"], (string)reader["Color"], (int)reader["Year"], (string)reader["LicensePlate"]);
 
                         connection.Close();
                         return car;
