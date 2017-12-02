@@ -116,10 +116,12 @@ namespace BLineRidez.SharedCode
             }
         }
 
-        public void AddRequest(RideRequest rideRequest)
+        public int AddRequest(RideRequest rideRequest)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
+                int requestID = 0;
+
                 try
                 {
                     connection.Open();
@@ -144,13 +146,22 @@ namespace BLineRidez.SharedCode
                     insertCmd.Parameters.Add("@DestinationState", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.State;
                     insertCmd.Parameters.Add("@DestinationZipCode", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.Zip;
 
-                    insertCmd.ExecuteNonQuery();
+                    using (var reader = insertCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        if ((int)reader["newRequestID"] > 0)
+                            requestID = (int)reader["newRequestID"];
+                    }
 
                     connection.Close();
+
+                    return requestID;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
+                    return requestID;
                 }
             }
         }
@@ -217,6 +228,32 @@ namespace BLineRidez.SharedCode
                     Console.WriteLine(e.ToString());
                     connection.Close();
                     return requests;
+                }
+            }
+        }
+
+        public bool IsRequestFulfilled(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                bool fulfilled = false;
+
+                try
+                {
+                    connection.Open();
+
+                    string cmdString = String.Format("SELECT dbo.fnCheckRequestFulfilled({0})", id);
+                    SqlCommand checkFulfilledCmd = new SqlCommand(cmdString, connection);
+
+                    fulfilled = (bool)checkFulfilledCmd.ExecuteScalar();
+                    connection.Close();
+                    return fulfilled;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return fulfilled;
                 }
             }
         }
