@@ -15,8 +15,9 @@ namespace BLineRidez.Models
         public DateTime RequestSubmissionDate { get; }
         public DateTime PickupDate { get; set; }
         public DateTime DropoffDate { get; set; }
+        public DateTime DriverETA { get; set; }
 
-        public RideRequest(int id, Customer customer, Address pickupAddress, Address dropoffAddress, DateTime requestSubmissionDate, DateTime pickupDate, Driver driver = null, DateTime dropoffDate = new DateTime())
+        public RideRequest(int id, Customer customer, Address pickupAddress, Address dropoffAddress, DateTime requestSubmissionDate, DateTime pickupDate, Driver driver, DateTime dropoffDate, DateTime driverETA)
         {
             ID = id;
             Customer = customer;
@@ -26,6 +27,16 @@ namespace BLineRidez.Models
             RequestSubmissionDate = requestSubmissionDate;
             PickupDate = pickupDate;
             DropoffDate = dropoffDate;
+        }
+
+        public RideRequest(Customer customer, Address pickupAddress, Address dropoffAddress, DateTime requestSubmissionDate, DateTime pickupDate, int id = 0)
+        {
+            Customer = customer;
+            PickupAddress = pickupAddress;
+            DropoffAddress = dropoffAddress;
+            RequestSubmissionDate = requestSubmissionDate;
+            PickupDate = pickupDate;
+            ID = id;
         }
     }
 }

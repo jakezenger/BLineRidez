@@ -199,7 +199,7 @@ namespace BLineRidez.SharedCode
             }
         }
 
-        public void FulfillRideRequest(int driverID, int requestID)
+        public void FulfillRideRequest(int driverID, int requestID, DateTime driverETA)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -211,6 +211,7 @@ namespace BLineRidez.SharedCode
                     fulfillCmd.CommandType = CommandType.StoredProcedure;
                     fulfillCmd.Parameters.Add("@RequestID", SqlDbType.Int).Value = requestID;
                     fulfillCmd.Parameters.Add("@DriverID", SqlDbType.Int).Value = driverID;
+                    fulfillCmd.Parameters.Add("@DriverETA", SqlDbType.DateTime).Value = driverETA;
 
                     fulfillCmd.ExecuteNonQuery();
 
@@ -248,7 +249,7 @@ namespace BLineRidez.SharedCode
                             DateTime pickupDate = (DateTime)reader["PickUpDate"];
                             int requestID = (int)reader["RequestID"];
 
-                            RideRequest request = new RideRequest(requestID, customer, pickupAddress, destinationAddress, submissionDate, pickupDate);
+                            RideRequest request = new RideRequest(customer, pickupAddress, destinationAddress, submissionDate, pickupDate, requestID);
                             requests.Add(request);
                         }
 

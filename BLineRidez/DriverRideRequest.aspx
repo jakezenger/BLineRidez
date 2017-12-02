@@ -10,7 +10,7 @@
             <asp:TextBox ID="RequestIdTextBox" runat="server"></asp:TextBox>
         </p>
         <p>
-            Estimated time until pickup (minutes): 
+            Estimated time of arrival (mm/dd/yyyy hour:minute): 
             <asp:TextBox ID="EtaTextBox" runat="server"></asp:TextBox>
         </p>
         <p>

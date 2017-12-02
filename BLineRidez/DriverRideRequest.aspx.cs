@@ -58,8 +58,8 @@ namespace BLineRidez
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             UserSession session = (UserSession)Session["userSession"];
-            db.FulfillRideRequest(session.User.ID, int.Parse(RequestIdTextBox.Text));
-            //TODO: Make ETA viewable to Customer
+            DateTime driverETA = Convert.ToDateTime(EtaTextBox.Text);
+            db.FulfillRideRequest(session.User.ID, int.Parse(RequestIdTextBox.Text), driverETA);
         }
     }
 }

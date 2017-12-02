@@ -46,9 +46,8 @@ namespace BLineRidez
 
             UserSession userSession = (UserSession)Session["userSession"];
 
-            uint rideRequestID = 0;
             DateTime pickupDate = Convert.ToDateTime(PickupTimeTextBox.Text);
-            RideRequest rideRequest = new RideRequest((int)rideRequestID, (Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
+            RideRequest rideRequest = new RideRequest((Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
             
             Database db = new Database();
             db.AddRequest(rideRequest);
