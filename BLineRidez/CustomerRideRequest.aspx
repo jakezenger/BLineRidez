@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CustomerRideRequest.aspx.cs" Inherits="BLineRidez.CustomerRideRequestForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
     <div class="jumbotron">
         <h1>Request a Ride</h1>
     </div>
@@ -64,6 +65,11 @@
     <div align="center">
         <p>
             <asp:Button ID="RequestRideButton" runat="server" Text="Request Ride" OnClick="RequestRideButton_Click" />
+        </p>
+        <p>
+            <asp:Label runat="server" ID="RideRequestStatusLabel" BorderStyle="Solid" Height="25px" Width="168px" ValidateRequestMode="Enabled" />
+            <asp:Timer ID="RideStatusTimer" runat="server" Enabled="False" Interval="2000" OnTick="RideStatusTimer_Tick">
+            </asp:Timer>
         </p>
     </div>
 </asp:Content>

@@ -11,6 +11,7 @@ namespace BLineRidez
 {
     public partial class CustomerRideRequestForm : System.Web.UI.Page
     {
+        public static int counter = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             UserSession session = (UserSession)Session["userSession"];
@@ -45,18 +46,44 @@ namespace BLineRidez
             Address dropoffAddress = new Address(dropoffLine1, dropoffLine2, dropoffCity, dropoffState, dropoffZip);
 
             UserSession userSession = (UserSession)Session["userSession"];
-
-            uint rideRequestID = 0;
+            
             DateTime pickupDate = Convert.ToDateTime(PickupTimeTextBox.Text);
-            RideRequest rideRequest = new RideRequest((int)rideRequestID, (Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
+            RideRequest rideRequest = new RideRequest(0, (Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
             
             Database db = new Database();
             db.AddRequest(rideRequest);
+
+            RideRequestStatusLabel.Text = "Waiting for Driver";
+            RideStatusTimer.Enabled = true;        
+            
         }
 
         protected void AsapButton_Click(object sender, EventArgs e)
         {
             PickupTimeTextBox.Text = DateTime.Now.ToString();
+        }
+
+        public void OnTimedEvent(object source, System.Timers.ElapsedEventArgs e)
+        {            
+        }
+
+        protected void UpdateTimer_Tick(object sender, EventArgs e)
+        {
+        }
+
+        protected void RideStatusTimer_Tick(object sender, EventArgs e)
+        {
+            if (true)
+            {
+                counter = ++counter % 4;
+                string requestStatusStr = "Waiting for Driver" + new String('.', counter);
+                RideRequestStatusLabel.Text = requestStatusStr;
+            }
+            else
+            {
+                RideRequestStatusLabel.Text = "Your Driver is on their way!";
+                RideStatusTimer.Enabled = false;
+            }
         }
     }
 }
