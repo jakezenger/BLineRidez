@@ -67,7 +67,7 @@
             <asp:Button ID="RequestRideButton" runat="server" Text="Request Ride" OnClick="RequestRideButton_Click" />
         </p>
         <p>
-            <asp:Label runat="server" ID="RideRequestStatusLabel" BorderStyle="Solid" Height="25px" Width="168px" ValidateRequestMode="Enabled" />
+            <asp:Label runat="server" ID="RideRequestStatusLabel" BorderStyle="Solid" Height="25px" Width="280px" ValidateRequestMode="Enabled" />
             <asp:Timer ID="RideStatusTimer" runat="server" Enabled="False" Interval="2000" OnTick="RideStatusTimer_Tick">
             </asp:Timer>
         </p>

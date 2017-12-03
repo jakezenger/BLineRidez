@@ -12,6 +12,8 @@ namespace BLineRidez
     public partial class CustomerRideRequestForm : System.Web.UI.Page
     {
         public static int counter = 0;
+        Database db = new Database();
+        int requestID;
         protected void Page_Load(object sender, EventArgs e)
         {
             UserSession session = (UserSession)Session["userSession"];
@@ -50,8 +52,8 @@ namespace BLineRidez
             DateTime pickupDate = Convert.ToDateTime(PickupTimeTextBox.Text);
             RideRequest rideRequest = new RideRequest((Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
             
-            Database db = new Database();
-            db.AddRequest(rideRequest);
+            //db = new Database();
+            requestID = db.AddRequest(rideRequest);
 
             RideRequestStatusLabel.Text = "Waiting for Driver";
             RideStatusTimer.Enabled = true;        
@@ -63,17 +65,9 @@ namespace BLineRidez
             PickupTimeTextBox.Text = DateTime.Now.ToString();
         }
 
-        public void OnTimedEvent(object source, System.Timers.ElapsedEventArgs e)
-        {            
-        }
-
-        protected void UpdateTimer_Tick(object sender, EventArgs e)
-        {
-        }
-
         protected void RideStatusTimer_Tick(object sender, EventArgs e)
         {
-            if (true)
+            if (!db.IsRequestFulfilled(requestID))
             {
                 counter = ++counter % 4;
                 string requestStatusStr = "Waiting for Driver" + new String('.', counter);
@@ -81,6 +75,8 @@ namespace BLineRidez
             }
             else
             {
+                RideRequestStatusLabel.BackColor = System.Drawing.Color.Green;
+                RideRequestStatusLabel.ForeColor = System.Drawing.Color.Magenta;
                 RideRequestStatusLabel.Text = "Your Driver is on their way!";
                 RideStatusTimer.Enabled = false;
             }

@@ -37,9 +37,9 @@ namespace BLineRidez
                     UserSession userSession = (UserSession)Session["userSession"];
                     int fulfilledRequestID = db.GetFulfilledRequest(userSession.User.ID).ID;
 
-                    if (fulfilledRequestID != 0)
-                        Response.Redirect("~/RequestFulfilled?id=" + fulfilledRequestID.ToString());
-                    else
+                    // if (fulfilledRequestID != 0)
+                    //    Response.Redirect("~/RequestFulfilled?id=" + fulfilledRequestID.ToString());
+                    //else
                         Response.Redirect("~/CustomerRideRequest.aspx");
                     break;
                 case LoginValidationResult.ValidDriver:

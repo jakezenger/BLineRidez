@@ -127,8 +127,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
-    <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -148,6 +146,7 @@
     <Content Include="CustomerRideRequest.aspx" />
     <Content Include="DriverRideRequest.aspx" />
     <Content Include="CustomerRideStatus.aspx" />
+    <Content Include="CustomerPayment.aspx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -185,21 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -282,6 +267,13 @@
     </Compile>
     <Compile Include="CustomerRideStatus.aspx.designer.cs">
       <DependentUpon>CustomerRideStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerPayment.aspx.cs">
+      <DependentUpon>CustomerPayment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerPayment.aspx.designer.cs">
+      <DependentUpon>CustomerPayment.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
