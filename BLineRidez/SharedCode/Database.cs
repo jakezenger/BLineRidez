@@ -96,6 +96,7 @@ namespace BLineRidez.SharedCode
                         insertCmd.Parameters.Add("@CarColor", SqlDbType.NVarChar).Value = driver.Car.Color;
                         insertCmd.Parameters.Add("@CarModel", SqlDbType.NVarChar).Value = driver.Car.Model;
                         insertCmd.Parameters.Add("@CarYear", SqlDbType.Int).Value = driver.Car.Year;
+                        insertCmd.Parameters.Add("@CarLicensePlate", SqlDbType.NChar).Value = driver.Car.LicensePlate;
 
                         insertCmd.ExecuteNonQuery();
 
@@ -116,10 +117,45 @@ namespace BLineRidez.SharedCode
             }
         }
 
-        public void AddRequest(RideRequest rideRequest)
+        public void AddPaymentDetails(PaymentDetails paymentDetails, int requestID)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand insertCmd = new SqlCommand("spAddPaymentDetails", connection);
+                    insertCmd.CommandType = CommandType.StoredProcedure;
+                    insertCmd.Parameters.Add("@RequestID", SqlDbType.Int).Value = requestID;
+                    insertCmd.Parameters.Add("@BillingFirstName", SqlDbType.NVarChar).Value = paymentDetails.FirstName;
+                    insertCmd.Parameters.Add("@BillingLastName", SqlDbType.NVarChar).Value = paymentDetails.LastName;
+                    insertCmd.Parameters.Add("@CardNum", SqlDbType.NChar).Value = paymentDetails.CardNum;
+                    insertCmd.Parameters.Add("@SecurityCode", SqlDbType.NChar).Value = paymentDetails.SecurityCode;
+                    insertCmd.Parameters.Add("@BillingAddressLine1", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.Line1;
+                    insertCmd.Parameters.Add("@BillingAddressLine2", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.Line2;
+                    insertCmd.Parameters.Add("@BillingAddressCity", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.City;
+                    insertCmd.Parameters.Add("@BillingAddressState", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.State;
+                    insertCmd.Parameters.Add("@BillingAddressZipCode", SqlDbType.NVarChar).Value = paymentDetails.BillingAddress.Zip;
+
+                    insertCmd.ExecuteNonQuery();
+
+                    connection.Close();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                }
+            }
+        }
+
+        public int AddRequest(RideRequest rideRequest)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                int requestID = 0;
+
                 try
                 {
                     connection.Open();
@@ -144,18 +180,27 @@ namespace BLineRidez.SharedCode
                     insertCmd.Parameters.Add("@DestinationState", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.State;
                     insertCmd.Parameters.Add("@DestinationZipCode", SqlDbType.NVarChar).Value = rideRequest.DropoffAddress.Zip;
 
-                    insertCmd.ExecuteNonQuery();
+                    using (var reader = insertCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        if ((int)reader["newRequestID"] > 0)
+                            requestID = (int)reader["newRequestID"];
+                    }
 
                     connection.Close();
+
+                    return requestID;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.ToString());
+                    return requestID;
                 }
             }
         }
 
-        public void FulfillRideRequest(int driverID, int requestID)
+        public void FulfillRideRequest(int driverID, int requestID, DateTime driverETA)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
@@ -167,6 +212,7 @@ namespace BLineRidez.SharedCode
                     fulfillCmd.CommandType = CommandType.StoredProcedure;
                     fulfillCmd.Parameters.Add("@RequestID", SqlDbType.Int).Value = requestID;
                     fulfillCmd.Parameters.Add("@DriverID", SqlDbType.Int).Value = driverID;
+                    fulfillCmd.Parameters.Add("@DriverETA", SqlDbType.DateTime).Value = driverETA;
 
                     fulfillCmd.ExecuteNonQuery();
 
@@ -204,7 +250,7 @@ namespace BLineRidez.SharedCode
                             DateTime pickupDate = (DateTime)reader["PickUpDate"];
                             int requestID = (int)reader["RequestID"];
 
-                            RideRequest request = new RideRequest(requestID, customer, pickupAddress, destinationAddress, submissionDate, pickupDate);
+                            RideRequest request = new RideRequest(customer, pickupAddress, destinationAddress, submissionDate, pickupDate, requestID);
                             requests.Add(request);
                         }
 
@@ -217,6 +263,32 @@ namespace BLineRidez.SharedCode
                     Console.WriteLine(e.ToString());
                     connection.Close();
                     return requests;
+                }
+            }
+        }
+
+        public bool IsRequestFulfilled(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                bool fulfilled = false;
+
+                try
+                {
+                    connection.Open();
+
+                    string cmdString = String.Format("SELECT dbo.fnCheckRequestFulfilled({0})", id);
+                    SqlCommand checkFulfilledCmd = new SqlCommand(cmdString, connection);
+
+                    fulfilled = (bool)checkFulfilledCmd.ExecuteScalar();
+                    connection.Close();
+                    return fulfilled;
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return fulfilled;
                 }
             }
         }
@@ -322,6 +394,47 @@ namespace BLineRidez.SharedCode
             }
         }
 
+        public RideRequest GetFulfilledRequest(int customerID)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                RideRequest rideRequest = new RideRequest();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetDriverCmd = new SqlCommand("spGetMostRecentFulfilledRequest", connection);
+                    GetDriverCmd.CommandType = CommandType.StoredProcedure;
+                    GetDriverCmd.Parameters.Add("@customerID", SqlDbType.Int).Value = customerID;
+
+
+                    using (var reader = GetDriverCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        Customer customer = GetCustomer((int)reader["CustomerID"]);
+                        Address pickupAddress = GetAddress((int)reader["PickUpAddressID"]);
+                        Address destinationAddress = GetAddress((int)reader["DestinationAddressID"]);
+                        DateTime submissionDate = (DateTime)reader["SubmissionDate"];
+                        DateTime pickupDate = (DateTime)reader["PickUpDate"];
+                        int requestID = (int)reader["RequestID"];
+
+                        rideRequest = new RideRequest(customer, pickupAddress, destinationAddress, submissionDate, pickupDate, requestID);
+
+                        connection.Close();
+                        return rideRequest;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return rideRequest;
+                }
+            }
+        }
+
         public Driver GetDriver(string username, string password)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
@@ -376,7 +489,7 @@ namespace BLineRidez.SharedCode
                     {
                         reader.Read();
 
-                        car = new Car((string)reader["Make"], (string)reader["Model"], (string)reader["Color"], (int)reader["Year"]);
+                        car = new Car((string)reader["Make"], (string)reader["Model"], (string)reader["Color"], (int)reader["Year"], (string)reader["LicensePlate"]);
 
                         connection.Close();
                         return car;

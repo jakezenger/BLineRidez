@@ -46,9 +46,9 @@ namespace BLineRidez
             Address dropoffAddress = new Address(dropoffLine1, dropoffLine2, dropoffCity, dropoffState, dropoffZip);
 
             UserSession userSession = (UserSession)Session["userSession"];
-            
+
             DateTime pickupDate = Convert.ToDateTime(PickupTimeTextBox.Text);
-            RideRequest rideRequest = new RideRequest(0, (Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
+            RideRequest rideRequest = new RideRequest((Customer)userSession.User, pickupAddress, dropoffAddress, DateTime.Now, pickupDate);
             
             Database db = new Database();
             db.AddRequest(rideRequest);
