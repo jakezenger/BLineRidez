@@ -60,6 +60,7 @@ namespace BLineRidez
             UserSession session = (UserSession)Session["userSession"];
             DateTime driverETA = Convert.ToDateTime(EtaTextBox.Text);
             db.FulfillRideRequest(session.User.ID, int.Parse(RequestIdTextBox.Text), driverETA);
+            Response.Redirect("~/DriverRideRequest.aspx");
         }
     }
 }
