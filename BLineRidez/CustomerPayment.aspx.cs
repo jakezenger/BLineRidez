@@ -18,6 +18,7 @@ namespace BLineRidez
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
+            int reqID = Request.QueryString("id");
             string firstName = BillingFirstNameTextBox.Text;
             string lastName = BillingLastNameTextBox.Text;
             string cardNumber = BillingCardNumTextBox.Text;
@@ -33,7 +34,7 @@ namespace BLineRidez
 
             Database db = new Database();
 
-            db.AddPaymentDetails(payDetails, 1232); //This needs to be changed throughout the stack
+            db.AddPaymentDetails(payDetails, reqID); //This needs to be changed throughout the stack
         }
     }
 }
