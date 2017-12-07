@@ -18,7 +18,7 @@ namespace BLineRidez
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            int reqID = Request.QueryString("id");
+            int reqID = Convert.ToInt32(Request.QueryString["id"]);
             string firstName = BillingFirstNameTextBox.Text;
             string lastName = BillingLastNameTextBox.Text;
             string cardNumber = BillingCardNumTextBox.Text;
