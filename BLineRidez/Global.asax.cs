@@ -6,11 +6,16 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 using System.Web.SessionState;
+using BLineRidez.Models;
+using BLineRidez.SharedCode;
 
 namespace BLineRidez
 {
     public class Global : HttpApplication
     {
+        User currentUser;
+        Database db;
+
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup

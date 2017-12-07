@@ -3,9 +3,6 @@
     <div class="jumbotron">
         <h1>Payment</h1>
     </div>
-    <div>
-        <asp:Label ID="RequestInfoLabel" runat="server" Text=""></asp:Label>
-    </div>
     <div align="right" style="width: 304px; margin-left: 5px">        
         <h3>Card Information</h3>
         <p>
