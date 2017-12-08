@@ -10,105 +10,141 @@
 namespace BLineRidez {
     
     
-    public partial class WebForm3 {
+    public partial class CustomerRideRequestForm {
         
         /// <summary>
-        /// RequestInfoLabel control.
+        /// PickupLine1TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label RequestInfoLabel;
+        protected global::System.Web.UI.WebControls.TextBox PickupLine1TextBox;
         
         /// <summary>
-        /// BillingFirstNameTextBox control.
+        /// PickupLine2TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingFirstNameTextBox;
+        protected global::System.Web.UI.WebControls.TextBox PickupLine2TextBox;
         
         /// <summary>
-        /// BillingLastNameTextBox control.
+        /// PickupCityTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingLastNameTextBox;
+        protected global::System.Web.UI.WebControls.TextBox PickupCityTextBox;
         
         /// <summary>
-        /// BillingCardNumTextBox control.
+        /// PickupStateTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingCardNumTextBox;
+        protected global::System.Web.UI.WebControls.TextBox PickupStateTextBox;
         
         /// <summary>
-        /// BillingSecCodeTextBox control.
+        /// PickupZipTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingSecCodeTextBox;
+        protected global::System.Web.UI.WebControls.TextBox PickupZipTextBox;
         
         /// <summary>
-        /// BillingLine1TextBox control.
+        /// PickupTimeTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingLine1TextBox;
+        protected global::System.Web.UI.WebControls.TextBox PickupTimeTextBox;
         
         /// <summary>
-        /// BillingLine2TextBox control.
+        /// DropoffLine1TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingLine2TextBox;
+        protected global::System.Web.UI.WebControls.TextBox DropoffLine1TextBox;
         
         /// <summary>
-        /// BillingCityTextBox control.
+        /// DropoffLine2TextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingCityTextBox;
+        protected global::System.Web.UI.WebControls.TextBox DropoffLine2TextBox;
         
         /// <summary>
-        /// BillingStateTextBox control.
+        /// DropoffCityTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingStateTextBox;
+        protected global::System.Web.UI.WebControls.TextBox DropoffCityTextBox;
         
         /// <summary>
-        /// BillingZipTextBox control.
+        /// DropoffStateTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox BillingZipTextBox;
+        protected global::System.Web.UI.WebControls.TextBox DropoffStateTextBox;
         
         /// <summary>
-        /// SubmitButton control.
+        /// DropoffZipTextBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button SubmitButton;
+        protected global::System.Web.UI.WebControls.TextBox DropoffZipTextBox;
+        
+        /// <summary>
+        /// AsapButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button AsapButton;
+        
+        /// <summary>
+        /// RequestRideButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button RequestRideButton;
+        
+        /// <summary>
+        /// RideRequestStatusLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RideRequestStatusLabel;
+        
+        /// <summary>
+        /// RideStatusTimer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.Timer RideStatusTimer;
     }
 }
