@@ -13,9 +13,6 @@ namespace BLineRidez
 {
     public class Global : HttpApplication
     {
-        User currentUser;
-        Database db;
-
         void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
