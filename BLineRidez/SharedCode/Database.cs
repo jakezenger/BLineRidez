@@ -412,18 +412,24 @@ namespace BLineRidez.SharedCode
                     using (var reader = GetDriverCmd.ExecuteReader())
                     {
                         reader.Read();
-
-                        Customer customer = GetCustomer((int)reader["CustomerID"]);
-                        Address pickupAddress = GetAddress((int)reader["PickUpAddressID"]);
-                        Address destinationAddress = GetAddress((int)reader["DestinationAddressID"]);
-                        DateTime submissionDate = (DateTime)reader["SubmissionDate"];
-                        DateTime pickupDate = (DateTime)reader["PickUpDate"];
-                        Driver driver = GetDriver((int)reader["DriverID"]);
                         int requestID = (int)reader["RequestID"];
-                        DateTime driverETA = (DateTime)reader["DriverETA"];
-                        DateTime dropOffDate = (DateTime)reader["DropOffDate"];
 
-                        rideRequest = new RideRequest(requestID, customer, pickupAddress, destinationAddress, submissionDate, pickupDate, driver, dropOffDate, driverETA);
+                        if (IsRequestFulfilled(requestID))
+                        {
+                            Customer customer = GetCustomer((int)reader["CustomerID"]);
+                            Address pickupAddress = GetAddress((int)reader["PickUpAddressID"]);
+                            Address destinationAddress = GetAddress((int)reader["DestinationAddressID"]);
+                            DateTime submissionDate = (DateTime)reader["SubmissionDate"];
+                            DateTime pickupDate = (DateTime)reader["PickUpDate"];
+
+                            Driver driver = GetDriver((int)reader["DriverID"]);
+
+                            DateTime driverETA = (DateTime)reader["DriverETA"];
+                            DateTime dropOffDate = new DateTime();
+
+
+                            rideRequest = new RideRequest(requestID, customer, pickupAddress, destinationAddress, submissionDate, pickupDate, driver, dropOffDate, driverETA);
+                        }
 
                         connection.Close();
                         return rideRequest;
