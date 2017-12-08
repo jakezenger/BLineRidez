@@ -471,6 +471,41 @@ namespace BLineRidez.SharedCode
             }
         }
 
+        public Driver GetDriver(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                Driver driver = new Driver();
+
+                try
+                {
+                    connection.Open();
+
+                    SqlCommand GetDriverCmd = new SqlCommand("spGetDriverFromID", connection);
+                    GetDriverCmd.CommandType = CommandType.StoredProcedure;
+                    GetDriverCmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+
+                    using (var reader = GetDriverCmd.ExecuteReader())
+                    {
+                        reader.Read();
+
+                        driver = new Driver(GetCar((int)reader["CarID"]), (bool)reader["IsActive"], (string)reader["UserName"],
+                            (string)reader["FirstName"], (string)reader["LastName"], (string)reader["Email"], (string)reader["PhoneNum"], (int)reader["ID"]);
+
+                        connection.Close();
+                        return driver;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
+                    connection.Close();
+                    return driver;
+                }
+            }
+        }
+
         private Car GetCar(int id)
         {
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
