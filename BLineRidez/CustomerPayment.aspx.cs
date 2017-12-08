@@ -19,14 +19,14 @@ namespace BLineRidez
             
             {
                 string infoStr = String.Format(
-                    "{0} is on their way!" +
-                    "Driving a {1} {2} {3}" +
-                    "Licence Plate: {4}" +
-                    "ETA: {5}"
-                    , request.Driver, request.Driver.Car.Color, request.Driver.Car.Make, request.Driver.Car.Model, "333-WWW", request.DriverETA
+                    "{0} is on their way!\n" +
+                    "Driving a {1} {2} {3}\n" +
+                    "License Plate: {4}\n" +
+                    "ETA: {5}\n"
+                    , request.Driver.FirstName + " " + request.Driver.LastName, request.Driver.Car.Color, request.Driver.Car.Make, request.Driver.Car.Model, request.Driver.Car.LicensePlate, request.DriverETA.ToString()
                     );
 
-                RequestInfoLabel.Text = infoStr;
+                RequestDetailsTextBox.Text = infoStr;
             }
             
         }

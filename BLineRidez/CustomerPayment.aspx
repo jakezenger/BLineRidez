@@ -4,7 +4,7 @@
         <h1>Payment</h1>
     </div>
     <div>
-        <asp:Label ID="RequestInfoLabel" runat="server" Text=""></asp:Label>
+        <asp:TextBox ID="RequestDetailsTextBox" runat="server" BorderStyle="None" Height="140px" ReadOnly="True" TextMode="MultiLine" Width="375px" Wrap="False"></asp:TextBox>
     </div>
     <div align="right" style="width: 304px; margin-left: 5px">        
         <h3>Card Information</h3>
